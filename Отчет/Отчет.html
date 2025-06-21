@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отчёт по лабораторной работе</title>
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #4cc9f0;
+            --background: #f8f9fa;
+            --text: #212529;
+            --card: #ffffff;
+            --border: #e9ecef;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+        
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .report {
+            max-width: 1200px;
+            margin: 40px auto;
+            background-color: var(--card);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+        }
+        
+        .header::after {
+            content: "";
+            position: absolute;
+            bottom: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+        
+        .org-name {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--secondary);
+            letter-spacing: -0.5px;
+        }
+        
+        .work-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 24px 0;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+            letter-spacing: -1px;
+        }
+        
+        .student-info {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+        
+        .student-info div {
+            background-color: var(--background);
+            padding: 12px 20px;
+            border-radius: 50px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .student-info div::before {
+            content: "•";
+            color: var(--accent);
+            font-weight: bold;
+        }
+        
+        .section {
+            margin: 48px 0;
+        }
+        
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .section-title::before {
+            content: "";
+            display: block;
+            width: 24px;
+            height: 24px;
+            background-color: var(--accent);
+            border-radius: 6px;
+            transform: rotate(45deg);
+        }
+        
+        .topology-image {
+            text-align: center;
+            margin: 32px 0;
+            border: 2px dashed var(--border);
+            padding: 20px;
+            border-radius: 12px;
+            background-color: var(--background);
+            transition: all 0.3s ease;
+        }
+        
+        .screenshot {
+            margin: 32px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            background: var(--card);
+        }
+        
+        .topology-image img, 
+        .screenshot img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border-radius: 8px;
+            object-fit: contain;
+            background: #f5f7fa;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid var(--border);
+        }
+        
+        .topology-image img {
+            max-height: 600px;
+        }
+        
+        .screenshot img {
+            max-height: 500px;
+        }
+        
+        .comment {
+            padding: 20px;
+            background-color: var(--card);
+            border-left: 4px solid var(--accent);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+        
+        .comment strong {
+            color: var(--secondary);
+            font-weight: 600;
+        }
+        
+        .conclusions {
+            margin-top: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, var(--background), var(--card));
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .conclusions::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+        }
+        
+        .placeholder {
+            color: #000000;
+            font-style: italic;
+            background-color: #f1f3f5;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .section {
+            animation: fadeIn 0.6s ease forwards;
+        }
+        
+        @media (max-width: 768px) {
+            .report {
+                padding: 24px;
+                margin: 20px;
+                border-radius: 12px;
+            }
+            
+            .work-title {
+                font-size: 24px;
+            }
+            
+            .student-info {
+                flex-direction: column;
+                gap: 12px;
+                align-items: center;
+            }
+            
+            .topology-image img {
+                max-height: 400px;
+            }
+            
+            .screenshot img {
+                max-height: 350px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="report">
+        <div class="header">
+            <div class="org-name">
+                <span class="placeholder">Международная Академия Информационных Технологий "ИТ ХАБ"</span>
+            </div>
+            
+            <div class="work-title">
+                Отчёт по проделанной работе
+                <br>
+                Проект по ОКС
+            </div>
+            
+            <div class="student-info">
+                <div>Выполнил: Васильев Дмитрий</div>
+                <div>Группа: 1ЭИТ</div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <div class="section-title">Топология сети</div>
+            
+            <div class="topology-image">
+                <img src="топология.jpg">
+            </div>
+        </div>
+        
+        <div class="section">
+            <div class="section-title">Ход работы и результаты</div>
+            
+            <div class="screenshot">
+                <img src="Screenshot_2.jpg">
+                <div class="comment">
+                    <strong>1 шаг:</strong> Настроил IP адреса компьютеров, используя IP Configuration. 3 октет = 8, порядковый номер в списке группы. 
+                </div>
+            </div>
+            
+            <div class="screenshot">
+                <img src="Screenshot_3.jpg">
+                <div class="comment">
+                    <strong>2 шаг:</strong> Настроил роутер по CLI, название hostname = моя фамилия, затем задал IP адреса портов: 192.168.8.1 и 172.16.8.1.<br>
+                    Команды:<br><span class="placeholder">
+                    enable<br>
+                    configure terminal<br>
+                    hostname Vasilev<br>
+                    interface FastEthernet0/0<br>
+                    ip address 192.168.8.1 255.255.255.0<br>
+                    no shutdown<br>
+                    interface FastEthernet0/1<br>
+                    ip address 172.16.8.1 255.255.0.0<br>
+                    no shutdown<br>
+                    exit<br>
+                    end<br>
+                    write memory<br>
+                    exit</span>
+                </div>
+            </div>
+
+            <div class="screenshot">
+                <img src="Screenshot_1.jpg">
+                <div class="comment">
+                    <strong>3 шаг:</strong> Проверка работоспособности, пинг всех IP
+                </div>
+            </div>
+
+            <div class="screenshot">
+                <img src="Screenshot_4.jpg">
+                <div class="comment">
+                    <strong>4 шаг:</strong> Создание репозитория GitHub, настройка SSH ключа, добавление (через commit) готового ptk файла и конфигурации устройств.
+                </div>
+            </div>
+
+            <div class="screenshot">
+                <img src="Screenshot_5.jpg">
+                <div class="comment">
+                    <strong>5 шаг:</strong> Создание отчёта.
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <div class="section-title">Выводы</div>
+            
+            <div class="conclusions">
+                Сначала задание показалось мне сложным, однако, по мере изучения материала, всё стало понятно.<br>
+                Было интересно узнать как работает GitHub, т.к. раньше для меня в нём не было необходимости, теперь я знаю, что делать, если мне понадобится создать репозиторий.<br>
+                Сложности возникли во время создания отчёта, например, я не делал скриншоты в процессе работы.
+            </div>
+        </div>
+    </div>
+</body>
+</html>
